@@ -53,7 +53,7 @@ task.addEventListener('click', ()=>{
             cell3.classList = "High";
         }
         cell3.addEventListener('dblclick', ()=>{
-            let select1 = document.querySelector('.form-select');
+            let select1 = document.querySelector('.form-select-1');
             output1 = select1.value;
             cell3.textContent = output1;
             if (cell3.textContent == "Low"){
