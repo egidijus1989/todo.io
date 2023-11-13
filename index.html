@@ -21,9 +21,9 @@
                 <input type="date" class="form-control" id="inputBox3" placeholder="Add due date" aria-label="Recipient's username" aria-describedby="button-addon2">
                 <button class="btn btn-outline-secondary" type="button" id="button-addon2" id="btn-add">Add</button>
               </div>
-              <button type="button" class="btn btn-primary" id="modalButton" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              <!-- <button type="button" class="btn btn-primary" id="modalButton" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Change Priority
-              </button>
+              </button> -->
         </div>  
         <div class="table-responsive">
             <table class="table table-striped table-hover sortable">
@@ -54,15 +54,15 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <select class="form-select-1" aria-label="Default select example">
+                <select class="form-select-1" aria-label="Default select example" name="priority">
                     <option value="Low">Low</option>
                     <option value="Normal">Normal</option>
                     <option value="High">High</option>
                 </select>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Choose priority</button>
-              <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" id="savePriority">Save changes</button>
             </div>
           </div>
         </div>

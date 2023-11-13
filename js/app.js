@@ -1,5 +1,22 @@
 let table = document.querySelector('.tbody');
 let task = document.querySelector('.btn');
+let savePriority = document.querySelector('#savePriority');
+let pasirinktasPrioritetas
+savePriority.addEventListener('click', ()=>{
+    let select1 = document.querySelector('.form-select-1');
+    pasirinktasPrioritetas.textContent = select1.value;
+    pasirinktasPrioritetas.classList.add('Low');
+    console.log(pasirinktasPrioritetas.textContent);
+    if (pasirinktasPrioritetas.textContent == "Low"){
+        pasirinktasPrioritetas.classList = "Low";
+    }
+    else if (pasirinktasPrioritetas.textContent == "Normal"){
+        pasirinktasPrioritetas.classList = "Normal";
+    }
+    else if (pasirinktasPrioritetas.textContent == "High"){
+        pasirinktasPrioritetas.classList = "High";
+    }
+})
 task.addEventListener('click', ()=>{
     if(inputBox1.value === ''){
         alert("You must write new Task");
@@ -53,18 +70,21 @@ task.addEventListener('click', ()=>{
             cell3.classList = "High";
         }
         cell3.addEventListener('dblclick', ()=>{
-            let select1 = document.querySelector('.form-select-1');
-            output1 = select1.value;
-            cell3.textContent = output1;
-            if (cell3.textContent == "Low"){
-                cell3.classList = "Low";
-            }
-            else if (cell3.textContent == "Normal"){
-                cell3.classList = "Normal";
-            }
-            else if (cell3.textContent == "High"){
-                cell3.classList = "High";
-            }
+            pasirinktasPrioritetas = cell3
+            const myModal = new bootstrap.Modal('#exampleModal');
+            myModal.show();
+            // let select1 = document.querySelector('.form-select-1');
+            // output1 = select1.value;
+            // cell3.textContent = output1;
+            // if (cell3.textContent == "Low"){
+            //     cell3.classList = "Low";
+            // }
+            // else if (cell3.textContent == "Normal"){
+            //     cell3.classList = "Normal";
+            // }
+            // else if (cell3.textContent == "High"){
+            //     cell3.classList = "High";
+            // }
         })
         row.appendChild(cell3);
 
@@ -151,7 +171,6 @@ task.addEventListener('click', ()=>{
         })
         
         table.appendChild(row);
-        saveData()
     }
     
 })
