@@ -1,7 +1,11 @@
+
 let table = document.querySelector('.tbody');
 let task = document.querySelector('.btn');
+
+let items = [];
+
 let savePriority = document.querySelector('#savePriority');
-let pasirinktasPrioritetas
+let pasirinktasPrioritetas;
 savePriority.addEventListener('click', ()=>{
     let select1 = document.querySelector('.form-select-1');
     pasirinktasPrioritetas.textContent = select1.value;
@@ -25,8 +29,13 @@ task.addEventListener('click', ()=>{
     //     alert("You must choose priority");
     // }
     else{
-        let row = document.createElement('tr');
+        let item = {
 
+        }
+        let row = document.createElement('tr');
+//////////////////
+        item.checkbox = false;
+/////////////////
         let cell1 = document.createElement('td');
         let checkDiv = document.createElement('div');
         checkDiv.classList = "form-check";
@@ -48,11 +57,14 @@ task.addEventListener('click', ()=>{
           }
           
           cell1.addEventListener('change', handleChange);
-
+//////////////////
+        item.subject = inputBox1.value;
+////////////////////////////
         let cell2 = document.createElement('td');
         cell2.textContent = inputBox1.value;
         row.appendChild(cell2);
-
+        
+        
         let cell3 = document.createElement('td');
         function getPriority() {
             selectElement = document.querySelector('.form-select');
@@ -86,12 +98,19 @@ task.addEventListener('click', ()=>{
             //     cell3.classList = "High";
             // }
         })
+        ////////////////////////////
+        item.priority = document.querySelector('.form-select').value;
+        /////////////////////////////
         row.appendChild(cell3);
 
+        //////////////////////////
+        item.dueDate = inputBox3.value;
+        //////////////////////////
         let cell4 = document.createElement('td');
         cell4.textContent = inputBox3.value;
         row.appendChild(cell4);
 
+        
         let cell5 = document.createElement('td');
         cell5.ondblclick = insertStatus;
         cell5.textContent = `New`;
@@ -115,11 +134,21 @@ task.addEventListener('click', ()=>{
                     progressBar.style.width = `${status1}%`;
                     progressBar.textContent = `${status1} %`;
                 }
+                ////////////////////////////////////
+                item.statusItem = cell5.textContent;
+                //////////////////////////////////
+                /////////////////////////////////////////
+                item.percentage = progressBar.textContent;
+                ////////////////////////////////////////
+                row.appendChild(cell5);
             }
             else {
                 alert('Progress value need to be between 0 and 100 %')
             }
         }
+        ////////////////////////////////////
+        item.statusItem = cell5.textContent;
+        //////////////////////////////////
         row.appendChild(cell5);
 
         let cell6 = document.createElement('td');
@@ -136,6 +165,9 @@ task.addEventListener('click', ()=>{
         progressBar.textContent = `${0} %`;
         progress.appendChild(progressBar);
         cell6.appendChild(progress);
+        /////////////////////////////////////////
+        item.percentage = progressBar.textContent;
+        ////////////////////////////////////////
         row.appendChild(cell6);
 
         let cell8 = document.createElement('td');
@@ -157,6 +189,9 @@ task.addEventListener('click', ()=>{
             let minyte = date.getMinutes();
             cell8.textContent = `${day}/${month +1}/${year} ${hour}:${minyte}`;
         })
+        //////////////////////////////////////
+        item.modified = cell8.textContent;
+        ////////////////////////////////////
         row.appendChild(cell8);
 
         let cell9 = document.createElement('td');
@@ -171,6 +206,14 @@ task.addEventListener('click', ()=>{
         })
         
         table.appendChild(row);
+        ///////////////////
+        items.push(item);
+        /////////////////////
+
+        ///////////////////////
+        localStorage.setItem('items', JSON.stringify(items));
+        ///////////////////////
+        console.log(JSON.parse(localStorage.getItem('items')));
     }
     
 })
