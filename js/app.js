@@ -1,4 +1,3 @@
-
 let table = document.querySelector('.tbody');
 let task = document.querySelector('.btn');
 
@@ -20,6 +19,7 @@ savePriority.addEventListener('click', ()=>{
     else if (pasirinktasPrioritetas.textContent == "High"){
         pasirinktasPrioritetas.classList = "High";
     }
+    
 })
 task.addEventListener('click', ()=>{
     if(inputBox1.value === ''){
@@ -54,6 +54,7 @@ task.addEventListener('click', ()=>{
             e.target.checked 
                ? cell2.classList.add('checked')
                : cell2.classList.remove('checked');
+               saveData();////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
           }
           
           cell1.addEventListener('change', handleChange);
@@ -85,18 +86,7 @@ task.addEventListener('click', ()=>{
             pasirinktasPrioritetas = cell3
             const myModal = new bootstrap.Modal('#exampleModal');
             myModal.show();
-            // let select1 = document.querySelector('.form-select-1');
-            // output1 = select1.value;
-            // cell3.textContent = output1;
-            // if (cell3.textContent == "Low"){
-            //     cell3.classList = "Low";
-            // }
-            // else if (cell3.textContent == "Normal"){
-            //     cell3.classList = "Normal";
-            // }
-            // else if (cell3.textContent == "High"){
-            //     cell3.classList = "High";
-            // }
+            saveData();/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         })
         ////////////////////////////
         item.priority = document.querySelector('.form-select').value;
@@ -124,7 +114,7 @@ task.addEventListener('click', ()=>{
                     progressBar.style.width = `${status1}%`;
                     progressBar.textContent = `${status1} %`;
                 }
-                else if (status1 ==100){
+                else if (status1 >=100){
                     cell5.textContent = `Complete`;
                     progressBar.style.width = `${status1}%`;
                     progressBar.textContent = `${status1} %`;
@@ -133,17 +123,17 @@ task.addEventListener('click', ()=>{
                     cell5.textContent = `In Progress`;
                     progressBar.style.width = `${status1}%`;
                     progressBar.textContent = `${status1} %`;
-                }
+                }   
+            }
+            else {
+                alert('Progress value need to be between 0 and 100 %')
                 ////////////////////////////////////
                 item.statusItem = cell5.textContent;
                 //////////////////////////////////
                 /////////////////////////////////////////
                 item.percentage = progressBar.textContent;
                 ////////////////////////////////////////
-                row.appendChild(cell5);
-            }
-            else {
-                alert('Progress value need to be between 0 and 100 %')
+                saveData();/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             }
         }
         ////////////////////////////////////
@@ -179,6 +169,7 @@ task.addEventListener('click', ()=>{
             let hour = date.getHours();
             let minyte = date.getMinutes();
             cell8.textContent = `${day}/${month +1}/${year} ${hour}:${minyte}`;
+            saveData();/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         })
         cell5.addEventListener('dblclick', ()=>{
             let date = new Date();
@@ -188,6 +179,7 @@ task.addEventListener('click', ()=>{
             let hour = date.getHours();
             let minyte = date.getMinutes();
             cell8.textContent = `${day}/${month +1}/${year} ${hour}:${minyte}`;
+            saveData();////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         })
         //////////////////////////////////////
         item.modified = cell8.textContent;
@@ -203,17 +195,57 @@ task.addEventListener('click', ()=>{
         row.appendChild(cell9);
         cell9.addEventListener('click', ()=>{
             row.remove();
+            saveData();////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         })
-        
+        //////////////////////////////////////
+        item.del = cell9;
+        ////////////////////////////////////
+
         table.appendChild(row);
         ///////////////////
         items.push(item);
         /////////////////////
 
         ///////////////////////
+        function saveData() {
+            localStorage.setItem('items', JSON.stringify(items));
+        }
         localStorage.setItem('items', JSON.stringify(items));
+        // saveData();
         ///////////////////////
         console.log(JSON.parse(localStorage.getItem('items')));
+
+
+        // function displayTasks(){
+        //     var taskList = document.querySelector('.tbody');
+        //     taskList.innerHTML = "";
+        //     var tasksReload = JSON.parse(localStorage.getItem('items')) || [];
+        //     tasksReload.forEach(function displayTasks() {
+        //         var row = taskList.insertRow();
+        //         var cell1 = row.insertCell(0);
+        //         var cell2 = row.insertCell(1);
+        //         var cell3 = row.insertCell(2);
+        //         var cell4 = row.insertCell(3);
+        //         var cell5 = row.insertCell(4);
+        //         var cell6 = row.insertCell(5);
+        //         var cell7 = row.insertCell(6);
+        //         var cell8 = row.insertCell(7);
+
+
+
+
+        
+        //         cell1.textContent = item.checkbox;
+        //         cell2.textContent = task.subject;
+        //         cell3.textContent = task.priority;
+        //         cell4.textContent = task.dueDate;
+        //         cell5.textContent = task.statusItem;
+        //         cell6.textContent = task.percentage;
+        //         cell7.textContent = task.modified;
+        //         cell8.textContent = task.del;
+        //     });
+        // }
+        
     }
-    
+    // displayTasks();
 })
